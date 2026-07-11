@@ -2,6 +2,8 @@
 
 Code actions based on diagnostics.
 
+![Demo](https://raw.githubusercontent.com/GasparVardanyan/gasparvardanyan.github.io/refs/heads/master/static/nanolog/diactions.gif)
+
 Sometimes LSP code actions are not enough. Linters like clang-tidy and cppcheck
 provide useful diagnostics, but many of them do not have corresponding code
 actions available in LSPs.
@@ -42,3 +44,4 @@ return {
 	end
 }
 ```
+

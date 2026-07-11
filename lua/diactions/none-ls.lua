@@ -24,7 +24,7 @@ local function get_actions (params, diag)
 end
 
 return {
-	name = "cpp_actions",
+	name = "diactions.nvim",
 	method = require ("null-ls").methods.CODE_ACTION,
 	filetypes = { "cpp" },
 	generator = {
