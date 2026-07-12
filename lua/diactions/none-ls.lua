@@ -11,13 +11,15 @@ local function get_actions (params, diag)
 		return {}
 	end
 
-	local module = table.concat ({"diactions.actions", ft, diag.source, diag.code}, ".")
+	for _, code in ipairs(vim.split(diag.code, ",", { plain = true })) do
+		local module = table.concat ({"diactions.actions", diag.source, code}, ".")
 
-	local found, action = pcall (require, module)
+		local found, action = pcall (require, module)
 
-	if true == found
-	then
-		vim.list_extend (actions, action (params, diag, parser))
+		if true == found
+		then
+			vim.list_extend (actions, action (params, diag, parser))
+		end
 	end
 
 	return actions
