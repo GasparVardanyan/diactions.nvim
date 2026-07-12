@@ -6,7 +6,8 @@ return function (params, diag, parser)
 	table.insert (actions, {
 		title = "Fix the closing comment",
 		action = function ()
-			if diag.message == "anonymous namespace not terminated with a closing comment"
+			vim.print (vim.inspect (diag))
+			if diag.message:match ("^[aA]nonymous namespace not terminated with a closing comment")
 			then
 				local tree = parser:parse () [1]
 				local root = tree:root ()
@@ -27,8 +28,8 @@ return function (params, diag, parser)
 					col,
 					{ " // end anonymous namespace" }
 				)
-			elseif diag.message == "anonymous namespace ends with an unrecognized comment"
-				or diag.message:match ("anonymous namespace ends with a comment that refers to a wrong namespace.*")
+			elseif diag.message:match ("^[aA]nonymous namespace ends with an unrecognized comment")
+				or diag.message:match ("^[aA]nonymous namespace ends with a comment that refers to a wrong namespace.*")
 			then
 				local line = vim.api.nvim_buf_get_lines (bufnr, diag.lnum, diag.lnum + 1, false) [1]
 
@@ -42,7 +43,7 @@ return function (params, diag, parser)
 				)
 			else
 				local ns = diag.message:match (
-					"^namespace '([^']+)' not terminated with a closing comment$"
+					"^[nN]amespace '([^']+)' not terminated with a closing comment"
 				)
 
 				if nil ~= ns
@@ -68,13 +69,13 @@ return function (params, diag, parser)
 					)
 				else
 					ns = diag.message:match (
-						"namespace '([^']+)' ends with an unrecognized comment"
+						"^[nN]amespace '([^']+)' ends with an unrecognized comment"
 					)
 
 					if nil == ns
 					then
 						ns = diag.message:match (
-							"namespace '([^']+)' ends with a comment that refers to a wrong namespace.*"
+							"^[nN]amespace '([^']+)' ends with a comment that refers to a wrong namespace.*"
 						)
 					end
 

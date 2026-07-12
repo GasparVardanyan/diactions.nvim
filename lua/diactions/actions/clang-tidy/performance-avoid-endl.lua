@@ -21,6 +21,8 @@ return function (params, diag, parser)
 
 			local replaced = false
 
+			-- FIXME: 'std::endl' works fine, but 'endl' fails
+
 			if outer_expr and outer_expr:type() == "binary_expression" then
 				local prev = outer_expr:field("left")[1]
 				if prev then
