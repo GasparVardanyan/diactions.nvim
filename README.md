@@ -26,6 +26,13 @@ other languages and linters as well.
 
 Contributions are welcome!
 
+Sometimes integrating a linter directly with an LSP enables additional code
+actions. For example, you can integrate clang-tidy with clangd using clangd's
+**--clang-tidy** flag. Once enabled, clang-tidy checks can be configured
+through either clangd or clang-tidy configuration files.  Unfortunately,
+neither cppcheck nor clazy appears to provide a similar integration that
+enables code actions in clangd.
+
 ## Setup
 
 The setup is straightforward:
