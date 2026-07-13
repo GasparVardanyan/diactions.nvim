@@ -11,7 +11,7 @@ local function get_actions (params, diag)
 		return {}
 	end
 
-	for _, code in ipairs(vim.split(diag.code, ",", { plain = true })) do
+	for _, code in ipairs (vim.split (diag.code, ",", { plain = true })) do
 		local module = table.concat ({"diactions.actions", diag.source, code}, ".")
 
 		local found, action = pcall (require, module)
@@ -20,6 +20,15 @@ local function get_actions (params, diag)
 		then
 			vim.list_extend (actions, action (params, diag, parser))
 		end
+	end
+
+	local module = "diactions.actions." .. diag.source
+
+	local found, action = pcall (require, module)
+
+	if true == found
+	then
+		vim.list_extend (actions, action (params, diag, parser))
 	end
 
 	return actions
