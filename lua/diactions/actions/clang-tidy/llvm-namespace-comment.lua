@@ -6,7 +6,6 @@ return function (params, diag, parser)
 	table.insert (actions, {
 		title = "Fix the closing comment",
 		action = function ()
-			vim.print (vim.inspect (diag))
 			if diag.message:match ("^[aA]nonymous namespace not terminated with a closing comment")
 			then
 				local tree = parser:parse () [1]
